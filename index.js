@@ -1,11 +1,17 @@
 const Discord = require('discord.js')
 require('dotenv').config();
+const fs= require('fs');
 const client = new Discord.Client({
     intents:["GUILDS", "GUILD_MESSAGES","GUILD_VOICE_STATES","GUILD_BANS"]
 });
-const fs= require('fs');
-const prefix = '!';
 client.commands = new Discord.Collection();
+const fileMessage = fs.readFileSync('message.json');
+const messages = JSON.parse(fileMessage);
+console.log(messages);
+
+
+const prefix = '!';
+
 
 // flitre pour chopper les commandes
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
@@ -32,6 +38,8 @@ client.on("messageCreate",(message)=>{
             client.commands.get("ping").execute(message,args);
         }else if(commande === "kick"){
             client.commands.get("kick").execute(message,args);
+        }else if(commande === "vieux"){
+            client.commands.get("vieux").execute(message,args,messages.vieux);
         }
     }
 });

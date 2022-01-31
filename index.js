@@ -20,19 +20,19 @@ const messages = JSON.parse(fileMessage);
 
 const prefix = '!';
 
-// flitre pour chopper les commandes
+// filter to get the commands
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
  
-// ajoute les commande 
+// load commands
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
-    console.log("la commande "+command.name+" est chargée");
+    console.log(command.name+" is charge");
     client.commands.set(command.name, command);
 }
 
 
 client.on('ready', () =>{
-    console.log("Connecter à " + client.user.username);
+    console.log("connected as " + client.user.username);
 });
 
 client.on("messageCreate",(message)=>{
@@ -44,8 +44,8 @@ client.on("messageCreate",(message)=>{
             client.commands.get("ping").execute(message,args);
         }else if(commande === "kick"){
             client.commands.get("kick").execute(message,args);
-        }else if(commande === "vieux"){
-            client.commands.get("vieux").execute(message,args,messages.vieux);
+        }else if(commande === "old"){
+            client.commands.get("old").execute(message,args,messages.vieux);
         }else if(commande == "settime"){
             client.commands.get("setTime").execute(message,args,redis);
         }else if(commande == "unsettime"){
@@ -73,9 +73,10 @@ client.on('voiceStateUpdate',(oldState,newState)=>{
                             let minute = Math.floor(millseconde/1000/60  << 0);
                             let seconde = Math.floor(millseconde/1000) %60;
                             redis.get(oldState.channelId.toString()+"msg",(err,msg)=>{
-                                oldState.guild.channels.cache.get(msg).send(`il y a eu un appel de ${minute} minute(s) et ${seconde} seconde(s) dans ${oldState.channel}`);
+                                oldState.guild.channels.cache.get(msg).send(`There was a call of ${minute} min and ${seconde} s in ${oldState.channel}`);
                             });
                         });
+                        // Remove date from bd
                         redis.set(oldState.channelId.toString(),"");
                     }
                 }

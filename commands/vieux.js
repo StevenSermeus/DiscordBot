@@ -1,5 +1,5 @@
 module.exports = {
-    name:'vieux',
+    name:'old',
     description:"This commande send a message that remember that you are old",
     execute(message,args,messages){
         const member = message.mentions.users.first();

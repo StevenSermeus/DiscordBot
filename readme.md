@@ -1,4 +1,8 @@
-Node v16.13.2
-Package : npm install discord.js dotenv fs
+First discord bot not perfect
 
-Changer le BOT_TOKEN dans le .env
+Node v16.13.2
+Package : npm install discord.js dotenv fs redis
+
+Require a redis server to connect to
+
+Change BOT_TOKEN in the .env

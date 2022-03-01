@@ -30,6 +30,34 @@ for (const file of commandFiles) {
     client.commands.set(command.name, command);
 }
 
+function setListening(oldState,newState){
+    redis.exists(newState.channelId.toString()).then(exist =>{
+        if(exist){
+            if(newState.guild.channels.cache.get(newState.channelId.toString()).members.size === 1){
+                redis.set(newState.channelId.toString(),new Date());
+            }
+        }
+    });
+}
+
+function sendMessageWithTime(oldState,newState){
+    redis.exists(oldState.channelId.toString()).then(exist =>{
+        if(exist){
+            if(oldState.guild.channels.cache.get(oldState.channelId.toString()).members.size === 0){
+                redis.get(oldState.channelId.toString(),(err,data)=>{
+                    let millseconde =(new Date() - new Date(data));
+                    let minute = Math.floor(millseconde/1000/60  << 0);
+                    let seconde = Math.floor(millseconde/1000) %60;
+                    redis.get(oldState.channelId.toString()+"msg",(err,msg)=>{
+                        oldState.guild.channels.cache.get(msg).send(`There was a call of ${minute} min and ${seconde} s in ${oldState.channel}`);
+                    });
+                });
+                // Remove date from bd
+                redis.set(oldState.channelId.toString(),"");
+            }
+        }
+    });
+}
 
 client.on('ready', () =>{
     console.log("connected as " + client.user.username);
@@ -56,13 +84,7 @@ client.on("messageCreate",(message)=>{
 
 client.on('voiceStateUpdate',(oldState,newState)=>{
     if(newState.channelId){
-        redis.exists(newState.channelId.toString()).then(exist =>{
-            if(exist){
-                if(newState.guild.channels.cache.get(newState.channelId.toString()).members.size === 1){
-                    redis.set(newState.channelId.toString(),new Date());
-                }
-            }
-        });
+        setListening(oldState,newState);
     }
         if(oldState.channelId){
              redis.exists(oldState.channelId.toString()).then(exist =>{

@@ -20,6 +20,7 @@ const messages = JSON.parse(fileMessage);
 
 const prefix = '!';
 
+
 // filter to get the commands
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
  
@@ -78,6 +79,10 @@ client.on("messageCreate",(message)=>{
             client.commands.get("setTime").execute(message,args,redis);
         }else if(commande == "unsettime"){
             client.commands.get("unSetTime").execute(message,args,redis);
+        }else if(commande === "trashmk"){
+            client.commands.get("trashmk").execute(message,args,messages.MK);
+        }else if(commande === "battle"){
+            client.commands.get("battle").execute(message,args,messages.battleMove,Discord);
         }
     }
 });

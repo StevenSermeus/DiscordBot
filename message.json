@@ -1,3 +1,48 @@
 {
-    "vieux":["Tu sais de mon temps les bots discord n'existaient pas", "J'avais encore des cheveux tu sais","👴👨‍🦳👩‍🦳👵","👩‍🦽👨‍🦽","Quand j'avais ton âge je travaillait déjà !"]
+    "MK":["Espèce de péripatéticienne !", "TRICHEUR"],
+    "vieux":["Tu sais de mon temps les bots discord n'existaient pas", "J'avais encore des cheveux tu sais","👴👨‍🦳👩‍🦳👵","👩‍🦽👨‍🦽","Quand j'avais ton âge je travaillait déjà !"],
+    "battleMove":[
+    {
+        "name":"Punch",
+        "min":20,
+        "max":35,
+        "emoji":"👊"
+    },
+    {
+        "name":"Bats les couilles",
+        "min":20,
+        "max":30,
+        "emoji":"👍"
+    },
+    {
+        "name":"Mange mort",
+        "min":15,
+        "max":40,
+        "emoji":"👻 💀"
+    },
+    {
+        "name":"Charro attaque",
+        "min":10,
+        "max":35,
+        "emoji":"😘"
+    },
+    {
+        "name":"Tripote anus",
+        "min":30,
+        "max":60,
+        "emoji":"👉🏽👌🏽🍆"
+    },
+    {
+        "name":"hurakken",
+        "min":20,
+        "max":35,
+        "emoji":"🌪️"
+    },
+    {
+        "name":"Papa Johnny",
+        "min":25,
+        "max":70,
+        "emoji":"🔥"
+    }
+]
 }

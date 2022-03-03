@@ -45,8 +45,8 @@ module.exports = {
                         player2.turn = false;
                     }
                     embed.addFields(
-                        { name: `Player HP`, value: `${player1.username} ${player1.hp} HP \n ${player2.username} ${player2.hp} HP`, inline: true ,inlineBreak: false},
                         { name: "Attaque", value: `Tour ${turn}\n${attack.name} a fait ${attack.dommage} ${attack.emoji} à ${getDommage} !`, inline: false },
+                        { name: `Player HP`, value: `${player1.username} ${player1.hp} HP \n ${player2.username} ${player2.hp} HP`, inline: true ,inlineBreak: false}
                       );
                       messageEmbed.edit({ embeds: [embed] });            
                 turn++;

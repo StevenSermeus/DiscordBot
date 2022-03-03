@@ -86,25 +86,8 @@ client.on('voiceStateUpdate',(oldState,newState)=>{
     if(newState.channelId){
         setListening(oldState,newState);
     }
-        if(oldState.channelId){
-             redis.exists(oldState.channelId.toString()).then(exist =>{
-                if(exist){
-                    if(oldState.guild.channels.cache.get(oldState.channelId.toString()).members.size === 0){
-                        redis.get(oldState.channelId.toString(),(err,data)=>{
-                            let millseconde =(new Date() - new Date(data));
-                            let minute = Math.floor(millseconde/1000/60  << 0);
-                            let seconde = Math.floor(millseconde/1000) %60;
-                            redis.get(oldState.channelId.toString()+"msg",(err,msg)=>{
-                                oldState.guild.channels.cache.get(msg).send(`There was a call of ${minute} min and ${seconde} s in ${oldState.channel}`);
-                            });
-                        });
-                        // Remove date from bd
-                        redis.set(oldState.channelId.toString(),"");
-                    }
-                }
-            });
-            
+    if(oldState.channelId){
+            sendMessageWithTime(oldState,newState)
         }
-    });
-
+});
 client.login(process.env.BOT_TOKEN);
